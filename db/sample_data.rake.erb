@@ -1,0 +1,15 @@
+
+
+namespace :db do 
+    desc "populates the database with dogs"
+    task populate: :environment do 
+        100.times do 
+            Dog.create!(
+                name: Faker::Creature::Dog.unique.name,
+                age: Faker::Creature::Dog.age,
+                size: Faker::Creature::Dog.size,
+                gender: Faker::Creature::Dog.gender
+            )
+        end
+    end 
+end
