@@ -5,11 +5,19 @@
     Dog.create(
         name: Faker::Creature::Dog.unique.name,
         age: Faker::Creature::Dog.age,
-        size: Faker::Creature::Dog.size,
+        dog_size: Faker::Creature::Dog.size,
         gender: Faker::Creature::Dog.gender
     )
+
 end
- 
+
+# def remove
+#     a = Dog.all.select{|inst| inst.dog_size == "extra large"}
+#     a.each{|inst| inst.update(dog_size: "large")}
+# end
+
+
+ end 
 100.times do 
     Owner.create(
         first_name: Faker::Name.unique.first_name,

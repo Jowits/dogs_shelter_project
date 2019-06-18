@@ -1,6 +1,30 @@
+
 $prompt = TTY::Prompt.new 
 
 class CommandLineInterface
+  
+      def welcome 
+        system 'clear'
+        puts Rainbow("               ______                                              ").red
+        puts Rainbow("              | ___ \                                              ").orange
+        puts Rainbow("              | |_/ / __ _  __      __  ___                        ").yellow
+        puts Rainbow("              |  __/ / _` | \ \ /\ / / / __|                       ").green
+        puts Rainbow("              | |   | (_| |  \ V  V /  \__ \                       ").aqua
+        puts Rainbow("              \_|    \__,_|   \_/\_/   |___/                       ").purple
+        puts "\n\n"
+        puts Rainbow("===================================================================").purple
+        puts "\n\n"
+        puts Rainbow("              _     /)---(\          /~~~\                         ").yellow
+        puts Rainbow("              \\   (/ . . \)        /  .. \                        ").yellow
+        puts Rainbow("               \\__)-\(*)/         (_,\  |_)                       ").yellow
+        puts Rainbow("               \_       (_         /   \@/    /^^^\                ").yellow
+        puts Rainbow("               (___/-(____) _     /      \   / . . \               ").yellow
+        puts Rainbow("                            \\   /  `    |   V\ Y /V               ").yellow
+        puts Rainbow("                             \\/  \   | _\    / - \                ").yellow
+        puts Rainbow("                              \   /__'|| \\_  |    \               ").yellow
+        puts Rainbow("                               \_____)|_).\_).||(__V               ").yellow
+        puts "\n\n"
+      end
 
 
     def greet 
@@ -19,7 +43,39 @@ class CommandLineInterface
         return Owner.create(first_name:@first_name, last_name: @last_name, email_address: @email_address)
         puts "Thank you #{@first_name} for creating an account. Time to get your paws in the game!"
     end 
+
+    def delete_user
+      @first_name.destroy && @last_name.destroy && @email_address.destroy
+      puts "Deleted customer #{@first.name}"
+    end
+
+    def dog_by_size
+      word=$prompt.select("Please enter size", %w(small medium large))
+      puts Dog.find_by_size(word)
+      
+      
+    end
+
+    def dog_by_age
+      word=$prompt.select("Please enter age", %w(puppy young adult senior))
+      puts Dog.find_by_age(word)
+      
+      
+    end
+
+    def dog_by_gender
+      word=$prompt.select("Please enter age", %w(Male Female))
+      puts Dog.find_by_gender(word)
+      
+      
+    end
  
+    def random_dog_selection
+     dog_sample = Dog.all.sample(10)
+     dog_sample.each do |dogs|
+      puts "#{dogs.name}, #{dogs.age}, #{dogs.gender}, #{dogs.dog_size}"
+     end
+    end 
 
 $choices = {
     'Choose dog by size' => 1,
@@ -54,21 +110,18 @@ $choices = {
           add_a_dog
         when 7
          delete_account
-        when 8
-          system("killall afplay")
-          $choices.delete('Turn off music')
-        when 0
-          systemclear("MISCHIEF MANAGED")
-          system("killall afplay")
+        
           break
       end
     end
   end
 
     def run 
+        welcome 
         greet 
         create_user
         menu
+        dog_by_size
     end 
     
    
