@@ -10,13 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_18_094003) do
+ActiveRecord::Schema.define(version: 2019_06_18_125321) do
 
   create_table "dogs", force: :cascade do |t|
     t.string "name"
     t.string "age"
-    t.string "size"
     t.string "gender"
+    t.string "dog_size"
   end
 
   create_table "leashes", force: :cascade do |t|
@@ -28,7 +28,6 @@ ActiveRecord::Schema.define(version: 2019_06_18_094003) do
     t.string "first_name"
     t.string "last_name"
     t.string "email_address"
-    
   end
 
 end
