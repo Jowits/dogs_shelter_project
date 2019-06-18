@@ -1,5 +1,5 @@
-
-
+ Owner.delete_all  
+ Dog.delete_all  
 
  100.times do 
     Dog.create(
@@ -12,7 +12,9 @@ end
  
 100.times do 
     Owner.create(
-        name: Faker::Name.unique.name
+        first_name: Faker::Name.unique.first_name,
+        last_name: Faker::Name.unique.last_name, 
+        email_address: Faker::Internet.email
     )
 end 
 
