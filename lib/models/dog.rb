@@ -39,6 +39,8 @@ end
      results.first(10)
   end
   
-
+  def dog_stories
+  
+  end 
 
 end
