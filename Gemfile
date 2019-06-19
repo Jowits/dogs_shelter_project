@@ -9,4 +9,8 @@ gem "faker"
 gem "rainbow"
 gem "artii"
 gem "tty-prompt"
+gem "tty-font"
+gem "tty-color"
+gem "pastel"
+
 
