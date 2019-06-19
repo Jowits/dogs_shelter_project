@@ -4,6 +4,8 @@ class Dog < ActiveRecord::Base
     has_many :leashes
     has_many :owners, through: :leashes
 
+   @@adopted_dogs=[] 
+
 def self.remove
         a = Dog.all.select{|inst| inst.dog_size == "extra large"}
         a.each{|inst| inst.update(dog_size: "medium")}
@@ -37,7 +39,10 @@ end
      results.sample(10)
   end
   
-  def self.see_more_dogs 
-  end 
-
+  def self.adopt_a_dog(dog_name)
+      Dog.all.find_by_name(dog_name)
+      Leash.create_dog 
+   end
+     
+ 
 end
