@@ -4,26 +4,36 @@ require "rainbow"
 
 class CommandLineInterface
   
-      def welcome 
+      def welcome
         system 'clear'
-        puts Rainbow("               ______                                              ").red.blink
-        puts Rainbow("              | ___ \\                                              ").orange.blink
-        puts Rainbow("              | |_/ / __ _  __      __  ___                        ").yellow.blink
-        puts Rainbow("              |  __/ / _` | \\ \\ /\\ / / / __|                       ").green.blink
-        puts Rainbow("              | |   | (_| |  \\ V  V /  \\__ \\                       ").aqua.blink
-        puts Rainbow("              \\_|    \\__,_|   \\_/\\_/   |___/                       ").purple.blink
-        puts Rainbow("===================================================================").purple
-        puts Rainbow("              _    /)---(\\          /~~~\\                         ").yellow
-        puts Rainbow("              \\   (/ . . \\)        /  .. \\                        ").yellow
-        puts Rainbow("               \\__)-\\(*)/         (_,\\  |_)                       ").orange
-        puts Rainbow("               \\_       (_         /   \\@/  //^^^\\\                ").orange
-        puts Rainbow("               (___/-(____) _ex     /      \\/ . . \\               ").orange
-        puts Rainbow("                            \\   /  `    |   V\\ Y /V               ").orange
-        puts Rainbow("                             \\/  \\   | _\\    / - \\                ").yellow
-        puts Rainbow("                              \\   /__'|| \\_  |    \\               ").orange
-        puts Rainbow("                               \\_____)|_).\\_).||(__V               ").honeydew
-    
+        puts Rainbow("================================================================").color(:mediumpurple).bright
+        puts Rainbow("================================================================").color(:mediumpurple).bright
+        puts Rainbow("                ______                                              ").color(:darkorange).bright.blink
+        puts Rainbow("                | ___ \\                                              ").color(:coral).bright.blink
+        puts Rainbow("                | |_/ / __ _  __      __  ___                        ").color(:lightcoral).bright.blink
+        puts Rainbow("                |  __/ / _` | \\ \\ /\\ / / / __|                       ").color(:lightcoral).bright.blink
+        puts Rainbow("                | |   | (_| |  \\ V  V /  \\__ \\                       ").color(:coral).bright.blink
+        puts Rainbow("                \\_|    \\__,_|   \\_/\\_/   |___/                       ").color(:darkorange).bright.blink
+        puts Rainbow("")
+        puts Rainbow("       ♥Welcome to Paws! Find your perfect dog match here♥").color(:purple).bright
+        puts Rainbow("")
+        puts Rainbow("================================================================").color(:mediumpurple).bright
+        puts Rainbow("")
+        puts Rainbow("            _    /)---(\\           /~~~\\                         ").color(:sandybrown).bright
+        puts Rainbow("             \\  (/ . . \\)         /  .. \\                        ").color(:sandybrown).bright
+        puts Rainbow("              \\__)-\\(*)/         (_,\\  |_)                       ").color(:sandybrown).bright
+        puts Rainbow("              \\_       (_         /   \\@/  //^^^\\\                ").color(:sandybrown).bright
+        puts Rainbow("              (___/-(____) _ex     /      \\/ . . \\               ").color(:sandybrown).bright
+        puts Rainbow("                           \\   /  `    |   V\\ Y /V               ").color(:sandybrown).bright
+        puts Rainbow("                            \\/  \\   | _\\    / - \\                ").color(:sandybrown).bright
+        puts Rainbow("                             \\   /__'|| \\_  |    \\               ").color(:sandybrown).bright
+        puts Rainbow("                              \\_____)|_).\\_).||(__V               ").color(:sandybrown).bright
+        puts Rainbow("")
+        puts Rainbow("================================================================").color(:mediumpurple).bright
+        puts Rainbow("================================================================").color(:mediumpurple).bright
+        puts "\n\n"
       end
+      
 
 
     def greet 
