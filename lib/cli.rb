@@ -1,29 +1,28 @@
 
 $prompt = TTY::Prompt.new 
+require "rainbow"
 
 class CommandLineInterface
   
       def welcome 
         system 'clear'
-        puts Rainbow("               ______                                              ").red
-        puts Rainbow("              | ___ \                                              ").orange
-        puts Rainbow("              | |_/ / __ _  __      __  ___                        ").yellow
-        puts Rainbow("              |  __/ / _` | \ \ /\ / / / __|                       ").green
-        puts Rainbow("              | |   | (_| |  \ V  V /  \__ \                       ").aqua
-        puts Rainbow("              \_|    \__,_|   \_/\_/   |___/                       ").purple
-        puts "\n\n"
+        puts Rainbow("               ______                                              ").red.blink
+        puts Rainbow("              | ___ \\                                              ").orange.blink
+        puts Rainbow("              | |_/ / __ _  __      __  ___                        ").yellow.blink
+        puts Rainbow("              |  __/ / _` | \\ \\ /\\ / / / __|                       ").green.blink
+        puts Rainbow("              | |   | (_| |  \\ V  V /  \\__ \\                       ").aqua.blink
+        puts Rainbow("              \\_|    \\__,_|   \\_/\\_/   |___/                       ").purple.blink
         puts Rainbow("===================================================================").purple
-        puts "\n\n"
-        puts Rainbow("              _     /)---(\          /~~~\                         ").yellow
-        puts Rainbow("              \\   (/ . . \)        /  .. \                        ").yellow
-        puts Rainbow("               \\__)-\(*)/         (_,\  |_)                       ").yellow
-        puts Rainbow("               \_       (_         /   \@/    /^^^\                ").yellow
-        puts Rainbow("               (___/-(____) _     /      \   / . . \               ").yellow
-        puts Rainbow("                            \\   /  `    |   V\ Y /V               ").yellow
-        puts Rainbow("                             \\/  \   | _\    / - \                ").yellow
-        puts Rainbow("                              \   /__'|| \\_  |    \               ").yellow
-        puts Rainbow("                               \_____)|_).\_).||(__V               ").yellow
-        puts "\n\n"
+        puts Rainbow("              _    /)---(\\          /~~~\\                         ").yellow
+        puts Rainbow("              \\   (/ . . \\)        /  .. \\                        ").yellow
+        puts Rainbow("               \\__)-\\(*)/         (_,\\  |_)                       ").orange
+        puts Rainbow("               \\_       (_         /   \\@/  //^^^\\\                ").orange
+        puts Rainbow("               (___/-(____) _ex     /      \\/ . . \\               ").orange
+        puts Rainbow("                            \\   /  `    |   V\\ Y /V               ").orange
+        puts Rainbow("                             \\/  \\   | _\\    / - \\                ").yellow
+        puts Rainbow("                              \\   /__'|| \\_  |    \\               ").orange
+        puts Rainbow("                               \\_____)|_).\\_).||(__V               ").honeydew
+    
       end
 
 
@@ -52,22 +51,16 @@ class CommandLineInterface
     def dog_by_size
       word=$prompt.select("Please enter size", %w(small medium large))
       puts Dog.find_by_size(word)
-      
-      
     end
 
     def dog_by_age
       word=$prompt.select("Please enter age", %w(puppy young adult senior))
       puts Dog.find_by_age(word)
-      
-      
     end
 
     def dog_by_gender
       word=$prompt.select("Please enter age", %w(Male Female))
       puts Dog.find_by_gender(word)
-      
-      
     end
  
     def random_dog_selection
@@ -75,6 +68,17 @@ class CommandLineInterface
      dog_sample.each do |dogs|
       puts "#{dogs.name}, #{dogs.age}, #{dogs.gender}, #{dogs.dog_size}"
      end
+    end 
+
+    $stories = {
+    "See Ricky the pitbull's story: from sleeping in central park to a warm Brooklyn home " => 1,
+    "See Classy golden retriever's story: from bait dog in a dumpster to forever home " => 2,
+    "See DJ the dachshund's story: from eating out of the sidewalk trash to eating out of the kitchen trash" => 3,
+    'Exit' => 0
+  }
+
+    def dog_stories
+      input = $prompt.select("Select an option:", $stories)
     end 
 
 $choices = {
