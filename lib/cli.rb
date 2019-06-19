@@ -1,4 +1,5 @@
 
+
 $prompt = TTY::Prompt.new 
 require "rainbow"
 
@@ -89,6 +90,16 @@ class CommandLineInterface
      end
     end 
 
+    def add_a_dog
+      puts "We are confident that we can find a home for the dog you've found in need.What is the dogs name?"
+      name = gets.chomp
+      size = $prompt.select("What is the dog's size? Please select from the following", %w(small medium large))
+      gender=$prompt.select("What is the dog's gender? Please select from the following", %w(Male Female))
+      age=$prompt.select("What is the dog's age? Please select from the following", %w(puppy young senior adult))
+      puts Dog.create(name:name, age:age, dog_size:size, gender:gender) 
+      puts "#{name} is now up for adoption!"
+    end 
+
     $stories = {
     "See Ricky the pitbull's story: from sleeping in central park to a warm Brooklyn home " => 1,
     "See Classy golden retriever's story: from bait dog in a dumpster to forever home " => 2,
@@ -164,7 +175,7 @@ $choices = {
   end 
 
 def adopt_a_dog
-  puts "We are so happy for your and your new family member! Please write the name of the dog you'd like to adopt"
+  puts "We are so happy for you and your new family member! Please write the name of the dog you'd like to adopt"
   dog_name = gets.chomp
   Dog.adopt_a_dog(dog_name)
   # congrats_method 
