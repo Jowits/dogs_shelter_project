@@ -1,3 +1,4 @@
+
  Owner.delete_all  
  Dog.delete_all  
 
@@ -11,13 +12,8 @@
 
 end
 
-# def remove
-#     a = Dog.all.select{|inst| inst.dog_size == "extra large"}
-#     a.each{|inst| inst.update(dog_size: "large")}
-# end
 
 
- end 
 100.times do 
     Owner.create(
         first_name: Faker::Name.unique.first_name,

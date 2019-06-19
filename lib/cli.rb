@@ -1,12 +1,16 @@
 
 
 $prompt = TTY::Prompt.new 
+$font = TTY::Font.new(:doom)
 require "rainbow"
 
 class CommandLineInterface
+
+      
   
       def welcome
         system 'clear'
+
         play_music
         puts Rainbow("================================================================").color(:mediumpurple).bright
         puts Rainbow("================================================================").color(:mediumpurple).bright
@@ -66,19 +70,19 @@ class CommandLineInterface
     end
 
     def dog_by_size
-      word=$prompt.select("Please enter size", %w(small medium large))
+      word=$prompt.select(Rainbow("Please enter size").color(:lightcoral).bright, %w(small medium large))
       puts Dog.find_by_size(word)
       adopt_a_dog_options 
     end
 
     def dog_by_age
-      word=$prompt.select("Please enter age", %w(puppy young adult senior))
+      word=$prompt.select(Rainbow("Please enter age").color(:lightcoral).bright, %w(puppy young adult senior))
       puts Dog.find_by_age(word)
       adopt_a_dog_options 
     end
 
     def dog_by_gender
-      word=$prompt.select("Please enter age", %w(Male Female))
+      word=$prompt.select(Rainbow("Please enter age").color(:lightcoral).bright, %w(Male Female))
       puts Dog.find_by_gender(word)
       adopt_a_dog_options 
     end
@@ -86,7 +90,7 @@ class CommandLineInterface
     def random_dog_selection
      dog_sample = Dog.all.sample(10)
      dog_sample.each do |dogs|
-      puts " #{dogs.name} | #{dogs.age} | #{dogs.gender} | #{dogs.dog_size}"
+      puts " #{dogs.name} |   #{dogs.age} |   #{dogs.gender} |   #{dogs.dog_size}"
      end
     end 
 
@@ -135,7 +139,7 @@ $choices = {
     while true
       puts "\n\n"
   
-      input = $prompt.select("Select an option:", $choices)
+      input = $prompt.select(Rainbow("Select an option:").color(:lightcoral), $choices)
   
       case input
         when 1
@@ -165,7 +169,7 @@ $choices = {
 
 
   def adopt_a_dog_options
-    input = $prompt.select("What would you like to do next?", $morechoices)
+    input = $prompt.select(Rainbow("What would you like to do next?").color(:lightcoral), $morechoices)
     case input 
     when 1 
       schedule_meeting
