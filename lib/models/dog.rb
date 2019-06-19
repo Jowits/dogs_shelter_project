@@ -4,7 +4,7 @@ class Dog < ActiveRecord::Base
     has_many :leashes
     has_many :owners, through: :leashes
 
-   @@adopted_dogs=[] 
+ 
 
 def self.remove
         a = Dog.all.select{|inst| inst.dog_size == "extra large"}
@@ -38,11 +38,15 @@ end
     end
      results.sample(10)
   end
+
   
   def self.adopt_a_dog(dog_name)
-      Dog.all.find_by_name(dog_name)
-      Leash.create_dog 
+      @adopted_dog = Dog.all.find_by_name(dog_name)
+      @owner = Owner.last
+      Leash.create(dog_id:@adopted_dog.id, owner_id:@owner.id)
+      puts "You are now the proud owner of #{dog_name}"
+      #more info about dog
+      #see more success stories 
    end
      
- 
 end
