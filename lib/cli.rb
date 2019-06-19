@@ -148,9 +148,24 @@ $choices = {
     when 1 
       schedule_meeting
     when 2 
-      adopt_a_dog 
+      adopt_a_dog
     end 
   end 
+
+def adopt_a_dog
+  puts "We are so happy for your and your new family member! Please write the name of the dog you'd like to adopt"
+  dog_name= gets.chomp
+  Dog.adopt_a_dog(dog_name)
+  # congrats_method 
+end 
+
+  def schedule_meeting
+    day_choices = %w(Monday Tuesday Wednesday Thursday Friday Saturday)
+      $prompt.multi_select("Time to meet your match :) Pick 2 days of the week that work best for you", day_choices)
+    time_choices = %w(Morning Afternoon Evening)
+      $prompt.multi_select("What time works best for you?", time_choices)
+    puts "Thank you for your response. We will be in touch shortly to finalise your meeting date and time"
+end 
  
   $morechoices = {
      'Schedule a meeting with a dog' => 1,
@@ -160,12 +175,9 @@ $choices = {
 
 
     def run 
-        welcome 
-        greet 
-        create_user
-        menu
-        dog_stories
-        adopt_a_dog_options
+      welcome 
+      create_user
+      menu
     end 
     
    
