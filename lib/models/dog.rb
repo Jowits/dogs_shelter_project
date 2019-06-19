@@ -1,4 +1,4 @@
-require "pry"
+$prompt = TTY::Prompt.new 
 class Dog < ActiveRecord::Base
 
     has_many :leashes
@@ -9,9 +9,6 @@ def self.remove
         a.each{|inst| inst.update(dog_size: "large")}
 end
  
- def self.delete_extra_large 
-    Dog.all.delete("extra large")
- end
   def self.find_by_size(word)
     results = Dog.all.select do |dogs| 
         if dogs.dog_size == word
@@ -39,8 +36,7 @@ end
      results.first(10)
   end
   
-  def dog_stories
-  
+  def self.see_more_dogs 
   end 
 
 end

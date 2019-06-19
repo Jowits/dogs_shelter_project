@@ -51,16 +51,19 @@ class CommandLineInterface
     def dog_by_size
       word=$prompt.select("Please enter size", %w(small medium large))
       puts Dog.find_by_size(word)
+      adopt_a_dog_options 
     end
 
     def dog_by_age
       word=$prompt.select("Please enter age", %w(puppy young adult senior))
       puts Dog.find_by_age(word)
+      adopt_a_dog_options 
     end
 
     def dog_by_gender
       word=$prompt.select("Please enter age", %w(Male Female))
       puts Dog.find_by_gender(word)
+      adopt_a_dog_options 
     end
  
     def random_dog_selection
@@ -79,6 +82,14 @@ class CommandLineInterface
 
     def dog_stories
       input = $prompt.select("Select an option:", $stories)
+      case input
+      when 1
+        puts "Adopted this guy from a pound/rescue. He was bought by someone from a breeder and because they didn't realize how much work a dog can be, they left him tied in central park one night. He's a troublemaker, but he's also a sweet boy. When I first met him, he began tugging at my shoelaces and eventually curled up in my lap and went to sleep. I fell in love and adopted him that day."  
+      when 2
+        puts "I'd been working on convincing my mom to rescue a dog for about six months. She kept saying she knew it was irrational, but that she just couldn't trust them. But then she saw Classy on the local shelter's Facebook page. Classy had been used as a bait dog, then left to die behind a dumpster. After a year in medical foster, she was ready to get a forever home. When we first saw a picture of her, the gash on her neck was so bad we thought she'd been hanged. We officially adopted Classy on Christmas Day, giving her a forever home."
+      when 3
+        puts "In the seven months we have had him, he has overcome his fear of stairs, squeaky toys, and the dishwasher. He has learned how to interact with other dogs confidently, how to play, and how to follow commands. He is much more confident and happy than he was when we first got him, and we are so happy he is a part of our lives forever."  
+      end
     end 
 
 $choices = {
@@ -120,12 +131,31 @@ $choices = {
     end
   end
 
+
+  def adopt_a_dog_options
+    input = $prompt.select("What would you like to do next?", $morechoices)
+    case input 
+    when 1 
+      schedule_meeting
+    when 2 
+      adopt_a_dog 
+    end 
+  end 
+ 
+  $morechoices = {
+     'Schedule a meeting with a dog' => 1,
+     'I am ready to adopt a dog!' => 2,
+     'Exit' => 0
+   }
+
+
     def run 
         welcome 
         greet 
         create_user
         menu
-        dog_by_size
+        dog_stories
+        adopt_a_dog_options
     end 
     
    
