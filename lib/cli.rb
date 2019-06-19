@@ -6,6 +6,7 @@ class CommandLineInterface
   
       def welcome
         system 'clear'
+        play_music
         puts Rainbow("================================================================").color(:mediumpurple).bright
         puts Rainbow("================================================================").color(:mediumpurple).bright
         puts Rainbow("                ______                                              ").color(:darkorange).bright.blink
@@ -36,26 +37,31 @@ class CommandLineInterface
       
 
 
-    def greet 
-        puts "Welcome to Paws! Find your perfect dog match here" 
-    end
-
+    
+      def play_music
+        pid = fork{ exec 'afplay', "who-let-the-dogs-out-ringtone.mp3" }
+      end
 
     def create_user 
-        puts "To get started, let's create an account for you"
-        puts "Please enter your first name"
+        puts Rainbow("To get started, let's create an account for you").color(:lightcoral).bright
+        puts Rainbow("Please enter your first name").color(:lightcoral).bright
         @first_name= gets.chomp
-        puts "Please enter your last name"
+        puts Rainbow("Please enter your last name").color(:lightcoral).bright
         @last_name=gets.chomp 
-        puts "Lastly, enter your email address"
+        puts Rainbow("Lastly, enter your email address").color(:lightcoral).bright
         @email_address= gets.chomp 
         return Owner.create(first_name:@first_name, last_name: @last_name, email_address: @email_address)
         puts "Thank you #{@first_name} for creating an account. Time to get your paws in the game!"
     end 
 
-    def delete_user
-      @first_name.destroy && @last_name.destroy && @email_address.destroy
-      puts "Deleted customer #{@first.name}"
+    def delete_account
+      puts  Rainbow("Please enter your email address: ").color(:lightcoral).bright
+      user_email = gets.chomp
+      @owner = Owner.find_by(email_address: user_email)
+      if user_email == @email_address
+         @owner.destroy 
+         puts "Your account was deleted"
+      end
     end
 
     def dog_by_size
@@ -79,7 +85,7 @@ class CommandLineInterface
     def random_dog_selection
      dog_sample = Dog.all.sample(10)
      dog_sample.each do |dogs|
-      puts "#{dogs.name}, #{dogs.age}, #{dogs.gender}, #{dogs.dog_size}"
+      puts " #{dogs.name} | #{dogs.age} | #{dogs.gender} | #{dogs.dog_size}"
      end
     end 
 
@@ -135,8 +141,13 @@ $choices = {
           add_a_dog
         when 7
          delete_account
-        
-          break
+        when 8
+          system("killall afplay")
+          $choices.delete('Turn off music')
+        when 0
+          systemclear("MISCHIEF MANAGED")
+          system("killall afplay")
+        break
       end
     end
   end
@@ -160,12 +171,9 @@ $choices = {
 
 
     def run 
-        welcome 
-        greet 
+        welcome
         create_user
         menu
-        dog_stories
-        adopt_a_dog_options
     end 
     
    
