@@ -1,4 +1,5 @@
 
+
 $prompt = TTY::Prompt.new 
 require "rainbow"
 
@@ -89,6 +90,16 @@ class CommandLineInterface
      end
     end 
 
+    def add_a_dog
+      puts "We are confident that we can find a home for the dog you've found in need.What is the dogs name?"
+      name = gets.chomp
+      size = $prompt.select("What is the dog's size? Please select from the following", %w(small medium large))
+      gender=$prompt.select("What is the dog's gender? Please select from the following", %w(Male Female))
+      age=$prompt.select("What is the dog's age? Please select from the following", %w(puppy young senior adult))
+      puts Dog.create(name:name, age:age, dog_size:size, gender:gender) 
+      puts "#{name} is now up for adoption!"
+    end 
+
     $stories = {
     "See Ricky the pitbull's story: from sleeping in central park to a warm Brooklyn home " => 1,
     "See Classy golden retriever's story: from bait dog in a dumpster to forever home " => 2,
@@ -159,9 +170,24 @@ $choices = {
     when 1 
       schedule_meeting
     when 2 
-      adopt_a_dog 
+      adopt_a_dog
     end 
   end 
+
+def adopt_a_dog
+  puts "We are so happy for you and your new family member! Please write the name of the dog you'd like to adopt"
+  dog_name = gets.chomp
+  Dog.adopt_a_dog(dog_name)
+  # congrats_method 
+end 
+
+  def schedule_meeting
+    day_choices = %w(Monday Tuesday Wednesday Thursday Friday Saturday)
+      $prompt.multi_select("Time to meet your match :) Pick 2 days of the week that work best for you", day_choices)
+    time_choices = %w(Morning Afternoon Evening)
+      $prompt.multi_select("What time works best for you?", time_choices)
+    puts "Thank you for your response. We will be in touch shortly to finalise your meeting date and time"
+end 
  
   $morechoices = {
      'Schedule a meeting with a dog' => 1,
@@ -171,9 +197,9 @@ $choices = {
 
 
     def run 
-        welcome
-        create_user
-        menu
+      welcome 
+      create_user
+      menu
     end 
     
    
