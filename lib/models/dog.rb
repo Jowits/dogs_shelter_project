@@ -1,4 +1,6 @@
 $prompt = TTY::Prompt.new 
+$font = TTY::Font.new(:doom)
+require "rainbow"
 class Dog < ActiveRecord::Base
 
     has_many :leashes
@@ -40,13 +42,32 @@ end
   end
 
   
+
   def self.adopt_a_dog(dog_name)
       @adopted_dog = Dog.all.find_by_name(dog_name)
       @owner = Owner.last
       Leash.create(dog_id:@adopted_dog.id, owner_id:@owner.id)
       puts "You are now the proud owner of #{dog_name}"
-      #more info about dog
-      #see more success stories 
-   end
+      more_options 
+  end 
+      
+  $choicesforadopt= {
+  'Learn more about #{name}' => 1,
+  'See more success stories' => 2,
+  'Schedule a time for pickup'=> 3
+  }
+
+  def more_options 
+      input = $prompt.select("Want to learn more?", $choicesforadopt)
+         case input 
+         when 1 
+            learn_more 
+         when 2
+            success_stories 
+         when 3
+            schedule_pickup 
+       end
+     end
      
 end
+
