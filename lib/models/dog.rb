@@ -17,7 +17,7 @@ end
   def self.find_by_size(word)
     results = Dog.all.select do |dogs| 
         if dogs.dog_size == word
-           puts " #{dogs.name} |   #{dogs.age} |   #{dogs.gender} |   #{dogs.dog_size}"
+           puts " #{dogs.name}   |    #{dogs.age}  |     #{dogs.gender} |     #{dogs.dog_size}"
         end
     end
      results.sample(10)
@@ -48,26 +48,9 @@ end
       @owner = Owner.last
       Leash.create(dog_id:@adopted_dog.id, owner_id:@owner.id)
       puts "You are now the proud owner of #{dog_name}"
-      more_options 
   end 
       
-  $choicesforadopt= {
-  'Learn more about #{name}' => 1,
-  'See more success stories' => 2,
-  'Schedule a time for pickup'=> 3
-  }
-
-  def more_options 
-      input = $prompt.select("Want to learn more?", $choicesforadopt)
-         case input 
-         when 1 
-            learn_more 
-         when 2
-            success_stories 
-         when 3
-            schedule_pickup 
-       end
-     end
+  
      
 end
 
