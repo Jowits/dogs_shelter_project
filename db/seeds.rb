@@ -1,6 +1,7 @@
 
  Owner.delete_all  
  Dog.delete_all  
+ Leash.delete_all
 
  100.times do 
     Dog.create(

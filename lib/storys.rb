@@ -1,5 +1,5 @@
 require "rainbow"
-$prompt = TTY::Prompt.new
+$prompt = TTY::Prompt.new(active_color: :cyan)
 
 def dog_stories
     system 'clear'
@@ -47,6 +47,7 @@ def dog_stories
     # end
     end
     story_text 
+    
     end
 
    
