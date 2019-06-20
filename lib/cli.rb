@@ -5,7 +5,9 @@ $font = TTY::Font.new(:doom)
 require "rainbow"
 
 class CommandLineInterface
-
+  # $prompt = TTY::Prompt.new 
+  # $font = TTY::Font.new(:doom)
+  # require "rainbow"
       
   
       def welcome
@@ -70,7 +72,7 @@ class CommandLineInterface
     end
 
     def dog_by_size
-      word=$prompt.select(Rainbow("Please enter size").color(:lightcoral).bright, %w(small medium large))
+      word= $prompt.select(Rainbow("Please enter size").color(:lightcoral).bright, %w(small medium large))
       puts Dog.find_by_size(word)
       adopt_a_dog_options 
     end
@@ -100,7 +102,7 @@ class CommandLineInterface
       size = $prompt.select("What is the dog's size? Please select from the following", %w(small medium large))
       gender=$prompt.select("What is the dog's gender? Please select from the following", %w(Male Female))
       age=$prompt.select("What is the dog's age? Please select from the following", %w(puppy young senior adult))
-      puts Dog.create(name:name, age:age, dog_size:size, gender:gender) 
+      Dog.create(name:name, age:age, dog_size:size, gender:gender) 
       puts "#{name} is now up for adoption!"
     end 
 
@@ -135,6 +137,7 @@ $choices = {
           random_dog_selection 
         when 5
           dog_stories
+          story_text 
         when 6
           add_a_dog
         when 7
@@ -164,9 +167,59 @@ $choices = {
 def adopt_a_dog
   puts "We are so happy for you and your new family member! Please write the name of the dog you'd like to adopt"
   dog_name = gets.chomp
-  Dog.adopt_a_dog(dog_name)
-  # congrats_method 
+  new_dog = Dog.adopt_a_dog(dog_name)
+  more_options 
 end 
+
+$choicesforadopt = {
+  'Learn more about your dog' => 1,
+  'See more success stories' => 2,
+  'Schedule a time for pickup'=> 3
+  }
+
+  def more_options 
+      input = $prompt.select("Want to learn more?", $choicesforadopt)
+         case input 
+         when 1 
+            learn_more 
+         when 2
+            dog_stories 
+            story_text
+         when 3
+            schedule_pickup 
+         end
+      end 
+  
+      $stories = {
+        "See Ricky the pitbull's story: from sleeping in central park to a warm Brooklyn home " => 1,
+        "See Classy golden retriever's story: from bait dog in a dumpster to forever home " => 2,
+        "See DJ the dachshund's story: from eating out of the sidewalk trash to eating out of the kitchen trash" => 3,
+        'Exit' => 0
+      }
+    
+    def story_text      
+          input = $prompt.select("Select an option:", $stories)
+          case input
+          when 1
+            puts "Adopted this guy from a pound/rescue. He was bought by someone from a breeder and because they didn't realize how much work a dog can be, they left him tied in central park one night. He's a troublemaker, but he's also a sweet boy. When I first met him, he began tugging at my shoelaces and eventually curled up in my lap and went to sleep. I fell in love and adopted him that day."  
+          when 2
+            puts "I'd been working on convincing my mom to rescue a dog for about six months. She kept saying she knew it was irrational, but that she just couldn't trust them. But then she saw Classy on the local shelter's Facebook page. Classy had been used as a bait dog, then left to die behind a dumpster. After a year in medical foster, she was ready to get a forever home. When we first saw a picture of her, the gash on her neck was so bad we thought she'd been hanged. We officially adopted Classy on Christmas Day, giving her a forever home."
+          when 3
+            puts "In the seven months we have had him, he has overcome his fear of stairs, squeaky toys, and the dishwasher. He has learned how to interact with other dogs confidently, how to play, and how to follow commands. He is much more confident and happy than he was when we first got him, and we are so happy he is a part of our lives forever."  
+          end
+        end 
+
+      def schedule_pickup
+        day_choices = %w(Monday Tuesday Wednesday Thursday Friday Saturday)
+          $prompt.multi_select("Time for pickup! :) Pick 2 days of the week that work best for you", day_choices)
+        time_choices = %w(Morning Afternoon Evening)
+          $prompt.multi_select("What time works best for you?", time_choices)
+        puts "Thank you for your response. We will be in touch shortly to finalise your meeting date and time"
+    end 
+
+  
+
+
 
   def schedule_meeting
     day_choices = %w(Monday Tuesday Wednesday Thursday Friday Saturday)
