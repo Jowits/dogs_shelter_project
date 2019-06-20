@@ -167,7 +167,7 @@ $choices = {
 def adopt_a_dog
   puts "We are so happy for you and your new family member! Please write the name of the dog you'd like to adopt"
   dog_name = gets.chomp
-  Dog.adopt_a_dog(dog_name)
+  new_dog = Dog.adopt_a_dog(dog_name)
   more_options 
 end 
 
