@@ -1,6 +1,6 @@
 
 
-$prompt = TTY::Prompt.new 
+$prompt = TTY::Prompt.new(active_color: :cyan)
 $font = TTY::Font.new(:doom)
 require "rainbow"
 
@@ -51,6 +51,7 @@ class CommandLineInterface
 
     def create_user 
         puts Rainbow("To get started, let's create an account for you").color(:lightcoral).bright
+        puts "\n\n"
         puts Rainbow("Please enter your first name").color(:lightcoral).bright
         @first_name= gets.chomp
         puts Rainbow("Please enter your last name").color(:lightcoral).bright
@@ -62,6 +63,7 @@ class CommandLineInterface
     end 
 
     def delete_account
+      puts "\n\n"
       puts  Rainbow("Please enter your email address: ").color(:lightcoral).bright
       user_email = gets.chomp
       @owner = Owner.find_by(email_address: user_email)
@@ -72,31 +74,36 @@ class CommandLineInterface
     end
 
     def dog_by_size
+      puts "\n\n"
       word= $prompt.select(Rainbow("Please enter size").color(:lightcoral).bright, %w(small medium large))
       puts Dog.find_by_size(word)
       adopt_a_dog_options 
     end
 
     def dog_by_age
+      puts "\n\n"
       word=$prompt.select(Rainbow("Please enter age").color(:lightcoral).bright, %w(puppy young adult senior))
       puts Dog.find_by_age(word)
       adopt_a_dog_options 
     end
 
     def dog_by_gender
+      puts "\n\n"
       word=$prompt.select(Rainbow("Please enter age").color(:lightcoral).bright, %w(Male Female))
       puts Dog.find_by_gender(word)
       adopt_a_dog_options 
     end
  
     def random_dog_selection
+      puts "\n\n"
      dog_sample = Dog.all.sample(10)
      dog_sample.each do |dogs|
-      puts " #{dogs.name} |   #{dogs.age} |   #{dogs.gender} |   #{dogs.dog_size}"
+      puts $prompt.multiline(" #{Rainbow(dogs.name).color(:mediumpurple)}    -    #{dogs.age}    -    #{dogs.gender}    -    #{dogs.dog_size}")
      end
     end 
 
     def add_a_dog
+      puts "\n\n"
       puts "We are confident that we can find a home for the dog you've found in need.What is the dogs name?"
       name = gets.chomp
       size = $prompt.select("What is the dog's size? Please select from the following", %w(small medium large))
@@ -146,25 +153,33 @@ $choices = {
           system("killall afplay")
           $choices.delete('Turn off music')
         when 0
-          systemclear("MISCHIEF MANAGED")
+          goodbye
           system("killall afplay")
         break
       end
     end
   end
-
+  
+  def goodbye
+     puts "\n\n"
+     puts "Goodbye for now!"
+  end
 
   def adopt_a_dog_options
+    puts "\n\n"
     input = $prompt.select(Rainbow("What would you like to do next?").color(:lightcoral), $morechoices)
     case input 
     when 1 
       schedule_meeting
     when 2 
       adopt_a_dog
+    when 0
+      menu
     end 
   end 
 
 def adopt_a_dog
+  puts "\n\n"
   puts "We are so happy for you and your new family member! Please write the name of the dog you'd like to adopt"
   dog_name = gets.chomp
   new_dog = Dog.adopt_a_dog(dog_name)
@@ -172,21 +187,24 @@ def adopt_a_dog
 end 
 
 $choicesforadopt = {
-  'Learn more about your dog' => 1,
+  
   'See more success stories' => 2,
-  'Schedule a time for pickup'=> 3
+  'Schedule a time for pickup'=> 3,
+  'Back to main menu' => 0
   }
 
   def more_options 
+    puts "\n\n"
       input = $prompt.select("Want to learn more?", $choicesforadopt)
          case input 
-         when 1 
-            learn_more 
+         
          when 2
             dog_stories 
             story_text
          when 3
             schedule_pickup 
+         when 0
+          menu
          end
       end 
   
@@ -194,10 +212,12 @@ $choicesforadopt = {
         "See Ricky the pitbull's story: from sleeping in central park to a warm Brooklyn home " => 1,
         "See Classy golden retriever's story: from bait dog in a dumpster to forever home " => 2,
         "See DJ the dachshund's story: from eating out of the sidewalk trash to eating out of the kitchen trash" => 3,
-        'Exit' => 0
+        "See all of the beautiful people who have adopted our dogs" => 4,
+        'Back to main menu' => 0
       }
     
     def story_text      
+      puts "\n\n"
           input = $prompt.select("Select an option:", $stories)
           case input
           when 1
@@ -206,10 +226,20 @@ $choicesforadopt = {
             puts "I'd been working on convincing my mom to rescue a dog for about six months. She kept saying she knew it was irrational, but that she just couldn't trust them. But then she saw Classy on the local shelter's Facebook page. Classy had been used as a bait dog, then left to die behind a dumpster. After a year in medical foster, she was ready to get a forever home. When we first saw a picture of her, the gash on her neck was so bad we thought she'd been hanged. We officially adopted Classy on Christmas Day, giving her a forever home."
           when 3
             puts "In the seven months we have had him, he has overcome his fear of stairs, squeaky toys, and the dishwasher. He has learned how to interact with other dogs confidently, how to play, and how to follow commands. He is much more confident and happy than he was when we first got him, and we are so happy he is a part of our lives forever."  
+          when 4
+            owners_and_dogs
+          when 0
+            menu
           end
-        end 
+    end 
+
+    def owners_and_dogs
+      puts Leash.puts_name_and_owner
+      
+    end
 
       def schedule_pickup
+        puts "\n\n"
         day_choices = %w(Monday Tuesday Wednesday Thursday Friday Saturday)
           $prompt.multi_select("Time for pickup! :) Pick 2 days of the week that work best for you", day_choices)
         time_choices = %w(Morning Afternoon Evening)
@@ -222,6 +252,7 @@ $choicesforadopt = {
 
 
   def schedule_meeting
+    puts "\n\n"
     day_choices = %w(Monday Tuesday Wednesday Thursday Friday Saturday)
       $prompt.multi_select("Time to meet your match :) Pick 2 days of the week that work best for you", day_choices)
     time_choices = %w(Morning Afternoon Evening)
@@ -232,7 +263,7 @@ end
   $morechoices = {
      'Schedule a meeting with a dog' => 1,
      'I am ready to adopt a dog!' => 2,
-     'Exit' => 0
+     'Back to main menu' => 0
    }
 
 
