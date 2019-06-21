@@ -5,14 +5,11 @@ $font = TTY::Font.new(:doom)
 require "rainbow"
 
 class CommandLineInterface
-  # $prompt = TTY::Prompt.new 
-  # $font = TTY::Font.new(:doom)
-  # require "rainbow"
+  
       
   
       def welcome
         system 'clear'
-
         play_music
         puts Rainbow("================================================================").color(:mediumpurple).bright
         puts Rainbow("================================================================").color(:mediumpurple).bright
@@ -41,13 +38,27 @@ class CommandLineInterface
         puts Rainbow("================================================================").color(:mediumpurple).bright
         puts "\n\n"
       end
-      
-
-
+      # def insert_spaces(n)
+      #   n.times { puts " \n" }
+      # end
+      # def pad_half_screen
+      #   spaces = IO.console.winsize[0] / 2
+      #   insert_spaces(spaces)
+      # end
+      # def centered_text(text)
+      #   width = IO.console.winsize[1] / 2
+      #   pad_half_screen
+      #   puts "#{" " * (width - (text.length / 2))}#{text}"
+      #   pad_half_screen
+      # end
     
       def play_music
-        pid = fork{ exec 'afplay', "who-let-the-dogs-out-ringtone.mp3" }
+        fork{ exec 'afplay', "who-let-the-dogs-out-ringtone.mp3" }
       end
+
+    #   def cheer_music
+    #     fork{ exec 'afplay', "cheering-crowd.mp3" }
+    #  end
 
     def create_user 
         puts Rainbow("To get started, let's create an account for you").color(:lightcoral).bright
@@ -90,8 +101,9 @@ class CommandLineInterface
     def dog_by_gender
       puts "\n\n"
       word=$prompt.select(Rainbow("Please enter age").color(:lightcoral).bright, %w(Male Female))
-      puts Dog.find_by_gender(word)
+      puts Dog.find_by_gender(word).sample(10)
       adopt_a_dog_options 
+
     end
  
     def random_dog_selection
@@ -99,7 +111,8 @@ class CommandLineInterface
      dog_sample = Dog.all.sample(10)
      dog_sample.each do |dogs|
       puts $prompt.multiline(" #{Rainbow(dogs.name).color(:mediumpurple)}    -    #{dogs.age}    -    #{dogs.gender}    -    #{dogs.dog_size}")
-     end
+      adopt_a_dog_options 
+    end
     end 
 
     def add_a_dog
@@ -155,6 +168,7 @@ $choices = {
         when 0
           goodbye
           system("killall afplay")
+          systemclear("MISCHIEF MANAGED")
         break
       end
     end
