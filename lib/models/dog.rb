@@ -16,14 +16,14 @@ class Dog < ActiveRecord::Base
    
    def self.find_by_size(word)
       results = Dog.all.select do |dogs| 
-         if dogs.dog_size == word
-           
+         if dogs.dog_size == word.downcase
          puts $prompt.multiline(" #{Rainbow(dogs.name).color(:mediumpurple)}   -   #{ dogs.age }    -   #{ dogs.gender }")
            
             
          end
+      
       end
-      results.sample(10)
+   
    end
 
    def self.find_by_age(word)
@@ -32,18 +32,22 @@ class Dog < ActiveRecord::Base
             puts $prompt.multiline(" #{Rainbow(dogs.name).color(:mediumpurple)}  -   #{dogs.gender}   -    #{dogs.dog_size}")
          end
       end
-      results.sample(10)
+      
    end
 
    def self.find_by_gender(word)
       results = Dog.all.select do |dogs| 
-         if dogs.gender == word
+         if dogs.gender == word 
             puts $prompt.multiline(" #{Rainbow(dogs.name).color(:mediumpurple)}  -   #{dogs.age}   -    #{dogs.dog_size}")
          end
       end
-      results.sample(10)
+      
    end
 
+   
+   def self.cheer_music
+      fork{ exec 'afplay', "cheering-crowd.mp3" }
+   end
    
 
    def self.adopt_a_dog(dog_name)
@@ -53,6 +57,7 @@ class Dog < ActiveRecord::Base
          @owner = Owner.last
          Leash.create(dog_id:@adopted_dog.id, owner_id:@owner.id)
          puts "\n\n"
+         Dog.cheer_music
          puts "You are now the proud owner of #{dog_name}!!!"
          puts @owner.dogs.first.funny_facts
          puts "\n\n"
